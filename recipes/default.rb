@@ -16,3 +16,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+# temp, .kitchen.yml should be doing this
+include_recipe 'runit'
+
+user 'wtf'
+
+runit_service 'wtf' do
+  default_logger true
+  action [:enable, :start]
+end
+
+template '/etc/foosball.conf' do
+  source "foosball.conf.erb"
+  owner "wtf"
+  action :create
+  mode "0644"
+  notifies :restart, "service[wtf]", :delayed
+end
+
+# y u fail !?
+

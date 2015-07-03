@@ -6,10 +6,15 @@ provisioner:
   name: chef_solo
 
 platforms:
-  - name: ubuntu-12.04
-  - name: centos-6.4
+  - name: ubuntu-14.04
+  - name: centos-6.6
 
 suites:
   - name: default
     run_list:
+      - recipe[apt]
+      - recipe[runit]
+      - recipe[bitmonk_runit_wtf::default]
     attributes:
+      apt:
+        compile_time_update: true
